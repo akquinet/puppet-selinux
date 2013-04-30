@@ -26,7 +26,7 @@ class selinux (
     }
   
     file {$config_file:
-      content => template('templates/etc.selinux.config.erb'),
+      content => template('selinux/etc.selinux.config.erb'),
       ensure => present,
     }
     
