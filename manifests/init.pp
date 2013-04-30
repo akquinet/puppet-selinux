@@ -30,6 +30,7 @@ class selinux (
       ensure => present,
     }
     
+    
     if $sync_state_instantly {
       case $::operatingsystem {
 		      redhat, centos, oel : {
@@ -38,9 +39,14 @@ class selinux (
 		        } else {
 		            $setenf = '0'
 		        }
+		        
+		        $cmdtest = "/usr/bin/test"    
+		        $cmdgetenf = "/usr/sbin/getenforce"
+            $cmdsetenf = "/usr/sbin/setenforce"
 		        exec { "setenforce_cmd":
-		            command => "/usr/sbin/setenforce $setenf",
+		            command => "$cmdsetenf $setenf",
 		            cwd => '/tmp',
+		            onlyif => "$cmdtest $($cmdgetenf) != 'Disabled'"
 		        }
 		      }
 		      default : {
