@@ -39,7 +39,7 @@ class selinux (
 		            $setenf = '0'
 		        }
 		        exec { "setenforce_cmd":
-		            command => "/usr/bin/setenforce $setenf",
+		            command => "/usr/sbin/setenforce $setenf",
 		            cwd => '/tmp',
 		        }
 		      }
